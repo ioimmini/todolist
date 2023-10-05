@@ -1,58 +1,49 @@
-// 버튼을 3개 만든다
-const $button1 = document.createElement("button");
-$button1.textContent = "Button1";
+function ToggleButton({ $target, text }) {
+  const $button = document.createElement("button");
+  let isInit = false;
 
-const $button2 = document.createElement("button");
-$button2.textContent = "Button2";
+  this.render = () => {
+    $button.textContent = text;
 
-const $button3 = document.createElement("button");
-$button3.textContent = "Button3";
+    if (!isInit) {
+      $target.appendChild($button);
 
-// 만든 버튼을 화면에 그린다.
+      $button.addEventListener("click", () => {
+        if ($button.style.textDecoration === "line-through") {
+          $button.style.textDecoration = "";
+        } else {
+          $button.style.textDecoration = "line-through";
+        }
+      });
+      isInit = true;
+    }
+  };
 
-const $main = document.querySelector("#app");
-
-$main.appendChild($button1);
-$main.appendChild($button2);
-$main.appendChild($button3);
-
-const toggleBtn = ($button) => {
-    if ($button.style.textDecoration === "line-through") {
-        $button.style.textDecoration = "none";
-      } else {
-        $button.style.textDecoration = "line-through";
-      }
+  this.render();
 }
 
-document.querySelectorAll("button").forEach(($button) => {
-  $button.addEventListener("click", (e) => {
-    const { target } = e;
-   toggleBtn(target)
-  });
+
+const $app = document.querySelector("#app");
+
+const button1 = new ToggleButton({
+  $target: $app,
+  text: "Button1",
 });
 
+button1.render();
 
-// 버튼을 클릭하면 삭선이 그어진다.
-// $button1.addEventListener("click", () => {
-//   if ($button1.style.textDecoration === "line-through") {
-//     $button1.style.textDecoration = "none";
-//   } else {
-//     $button1.style.textDecoration = "line-through";
-//   }
-// });
 
-// $button2.addEventListener("click", () => {
-//   if ($button2.style.textDecoration === "line-through") {
-//     $button2.style.textDecoration = "none";
-//   } else {
-//     $button2.style.textDecoration = "line-through";
-//   }
-// });
+new ToggleButton({
+  $target: $app,
+  text: "Button2",
+});
 
-// $button3.addEventListener("click", () => {
-//   if ($button3.style.textDecoration === "line-through") {
-//     $button3.style.textDecoration = "none";
-//   } else {
-//     $button3.style.textDecoration = "line-through";
-//   }
-// });
+new ToggleButton({
+  $target: $app,
+  text: "Button3",
+});
+
+new ToggleButton({
+  $target: $app,
+  text: "Button4",
+});
