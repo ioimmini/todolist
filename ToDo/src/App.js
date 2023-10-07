@@ -8,8 +8,12 @@ function App({ $target, initialState }) {
     onSubmit: (text) => {
       const nextState = [...todoList.state, { text }];
       todoList.setState(nextState);
+
+      storage.setItem('todos', JSON.stringify(nextState))
     },
   });
+
+
 
   const todoList = new TodoList({
     $target,

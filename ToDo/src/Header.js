@@ -6,6 +6,7 @@ function Header({ $target, text }) {
   this.render = () => {
 
     $h1.textContent = text;
+    
   };
   this.render();
 }

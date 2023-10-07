@@ -1,17 +1,8 @@
-const data = [
-    {
-        text: 'hi'
-    },
-    {
-        text: 'bye'
-    }
-
-]
-
+const initialState = storage.getItem("todos", []);
 
 const $app = document.querySelector(".app");
 
 new App({
-$target: $app,
-initialState : data
-})
+  $target: $app,
+  initialState,
+});
