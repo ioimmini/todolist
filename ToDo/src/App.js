@@ -1,7 +1,7 @@
 function App({ $target, initialState }) {
   new Header({
     $target,
-    text: "Simple Todo List",
+    text: `Simple Todo List (${initialState.length})`,
   });
   new TodoForm({
     $target,

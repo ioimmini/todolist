@@ -1,4 +1,4 @@
-function TodoForm({ $target, onSubmit }) {
+function TodoForm({ $target, onSubmit}) {
   const $form = document.createElement("form");
   $target.appendChild($form);
 
@@ -18,6 +18,7 @@ function TodoForm({ $target, onSubmit }) {
           $todo.value = "";
           onSubmit(text);
         }
+        
       });
 
       isInit = true;
