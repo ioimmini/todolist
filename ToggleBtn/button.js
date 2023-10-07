@@ -93,9 +93,10 @@ new ButtonGroup({
         text: 'toggle button',
       },
       {
-          type: "timer",
-          text: 'timer',
-          timer : 1000
+        type: "timer",
+        text: 'timer',
+        timer : 1000
         }
   ]
 });
+
