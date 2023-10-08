@@ -1,4 +1,4 @@
-function TodoList({ $target, initialState }) {
+function TodoList({ $target, initialState, onClick }) {
   const $todoList = document.createElement("div");
   $target.appendChild($todoList);
 
@@ -16,7 +16,8 @@ function TodoList({ $target, initialState }) {
     this.setState(nextState);
 
     // Update the count when an item is toggled
-    updateCountInLocalStorage(nextState);
+    const updatedCount = calculateCount(nextState); // Implement this function to calculate the count
+    onClick(updatedCount);
   };
 
   this.removeTodo = (index) => {
@@ -25,11 +26,11 @@ function TodoList({ $target, initialState }) {
   
     // Decrement the count in localStorage
     let count = parseInt(localStorage.getItem("todoCount")) || 0;
-    console.log("Count before decrement:", count);
     count--;
-    console.log("Count after decrement:", count);
     localStorage.setItem("todoCount", count.toString());
-    updateLocalStorage(nextState);
+
+    // Update the count when an item is removed
+    onClick(count);
   };
   
   

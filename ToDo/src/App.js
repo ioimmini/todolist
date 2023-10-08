@@ -13,6 +13,10 @@ function App({ $target, initialState }) {
   const todoList = new TodoList({
     $target,
     initialState,
+    onClick: (count) => {
+      // Update the count in localStorage or perform any desired action
+      localStorage.setItem("todoCount", count.toString());
+    },
   });
 
   const todoCount = new TodoCount({

@@ -1,5 +1,6 @@
 function TodoForm({ $target, onSubmit}) {
   const $form = document.createElement("form");
+  
   $target.appendChild($form);
 
   let isInit = false;
@@ -17,7 +18,7 @@ function TodoForm({ $target, onSubmit}) {
 
         if (text.length > 1) {
           $todo.value = "";
-          
+
           onSubmit(text);
         }
       });
