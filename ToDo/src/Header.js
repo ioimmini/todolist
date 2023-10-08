@@ -1,13 +1,13 @@
 function Header({ $target, text}) {
-  const $h1 = document.createElement("h1");
+  const $header = document.createElement("header");
 
-  $target.appendChild($h1);
+  $target.appendChild($header);
 
 
   this.render = () => {
 
 
-    $h1.textContent = text;
+    $header.textContent = text;
   };
   this.render();
 }

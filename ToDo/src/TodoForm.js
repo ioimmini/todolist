@@ -1,4 +1,4 @@
-function TodoForm({ $target, onSubmit, onCount }) {
+function TodoForm({ $target, onSubmit}) {
   const $form = document.createElement("form");
   $target.appendChild($form);
 
@@ -14,10 +14,11 @@ function TodoForm({ $target, onSubmit, onCount }) {
 
         const $todo = $form.querySelector("input[name=todo]");
         const text = $todo.value;
+
         if (text.length > 1) {
           $todo.value = "";
+          
           onSubmit(text);
-          onCount(++initialState.length);
         }
       });
 

@@ -1,19 +1,18 @@
-function TodoCount({ $target, initialState }) {
-  const $count = document.createElement("div");
+function TodoCount({ $target }) {
+  const $todoCount = document.createElement("div");
+  $target.appendChild($todoCount);
 
-  $target.appendChild($count);
-
-  this.state = {
-    count: initialState.length,
-  };
+  // Initialize the count from localStorage
+  let count = parseInt(localStorage.getItem("todoCount")) || 0;
 
   this.setState = (nextState) => {
-    this.state.count = nextState;
+    count = nextState;
+    localStorage.setItem("todoCount", count.toString()); // Update localStorage
     this.render();
   };
 
   this.render = () => {
-    $count.textContent = `${this.state.count}`;
+    $todoCount.innerHTML = `Total Count: ${count}`;
   };
 
   this.render();
