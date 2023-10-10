@@ -1,7 +1,15 @@
-function updateLocalStorage(data) {
+import Header from "./Header.js";
+import TodoForm from "./TodoForm.js";
+import TodoList from "./TodoList.js";
+import TodoCount from "./TodoCount.js";
+import { setItem } from "./storage.js";  
+
+
+
+export function updateLocalStorage(data) {
   localStorage.setItem("todos", JSON.stringify(data));
 }
-function App({ $target, initialState }) {
+export default function App({ $target, initialState }) {
   if (localStorage.getItem("todoCount") === null) {
     localStorage.setItem("todoCount", "0");
   }
@@ -30,6 +38,7 @@ function App({ $target, initialState }) {
       const nextState = [...todoList.state, { text }];
       todoList.setState(nextState);
   
+      setItem('todos', JSON.stringify(nextState))
       // Increment the count in localStorage
       const count = parseInt(localStorage.getItem("todoCount")) || 0;
       localStorage.setItem("todoCount", (count + 1).toString());

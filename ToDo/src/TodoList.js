@@ -1,4 +1,6 @@
-function TodoList({ $target, initialState, onClick }) {
+import { updateLocalStorage } from "./App.js";
+
+export default function TodoList({ $target, initialState, onClick }) {
   const $todoList = document.createElement("div");
   $target.appendChild($todoList);
 
@@ -21,9 +23,12 @@ function TodoList({ $target, initialState, onClick }) {
   };
 
   this.removeTodo = (index) => {
-    const nextState = [...this.state.slice(0, index), ...this.state.slice(index + 1)];
+    const nextState = [
+      ...this.state.slice(0, index),
+      ...this.state.slice(index + 1),
+    ];
     this.setState(nextState);
-  
+
     // Decrement the count in localStorage
     let count = parseInt(localStorage.getItem("todoCount")) || 0;
     count--;
@@ -32,9 +37,6 @@ function TodoList({ $target, initialState, onClick }) {
     // Update the count when an item is removed
     onClick(count);
   };
-  
-  
-  
 
   this.render = () => {
     $todoList.innerHTML = `
@@ -42,10 +44,12 @@ function TodoList({ $target, initialState, onClick }) {
         ${this.state
           .map(
             (todo, index) =>
-              `<li${todo.isCompleted ? ' class="completed"' : ''}>
+              `<li${todo.isCompleted ? ' class="completed"' : ""}>
                  <span class="todo-text">${todo.text}</span>
                  <button class="delete-button" data-index="${index}">❌</button>
-                 <button class="complete-button" data-index="${index}">${todo.isCompleted ? '✓' : '○'}</button>
+                 <button class="complete-button" data-index="${index}">${
+                todo.isCompleted ? "✓" : "○"
+              }</button>
                </li>`
           )
           .join("")}

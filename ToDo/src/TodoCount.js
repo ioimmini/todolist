@@ -1,4 +1,4 @@
-function TodoCount({ $target }) {
+export default function TodoCount({ $target }) {
   const $todoCount = document.createElement("div");
   $target.appendChild($todoCount);
 
@@ -12,7 +12,7 @@ function TodoCount({ $target }) {
   };
 
   this.render = () => {
-    $todoCount.innerHTML = `Total Count: ${count}`;
+    $todoCount.innerHTML = `Completed Count : /Total Count: ${count}`;
   };
 
   this.render();
