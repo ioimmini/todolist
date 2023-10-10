@@ -1,4 +1,4 @@
-export default function TodoForm({ $target, onSubmit }) {
+export default function TodoForm({ $target, onSubmit, onClick, initialState }) {
   const $form = document.createElement("form");
   
   $target.appendChild($form);
@@ -20,6 +20,7 @@ export default function TodoForm({ $target, onSubmit }) {
           $todo.value = "";
 
           onSubmit(text);
+          onClick(++initialState.length);
         }
       });
 

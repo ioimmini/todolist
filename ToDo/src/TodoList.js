@@ -29,13 +29,8 @@ export default function TodoList({ $target, initialState, onClick }) {
     ];
     this.setState(nextState);
 
-    // Decrement the count in localStorage
-    let count = parseInt(localStorage.getItem("todoCount")) || 0;
-    count--;
-    localStorage.setItem("todoCount", count.toString());
-
     // Update the count when an item is removed
-    onClick(count);
+    onClick(--initialState.length);
   };
 
   this.render = () => {

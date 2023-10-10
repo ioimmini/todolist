@@ -1,18 +1,19 @@
-export default function TodoCount({ $target }) {
+export default function TodoCount({ $target, initialState }) {
   const $todoCount = document.createElement("div");
   $target.appendChild($todoCount);
 
-  // Initialize the count from localStorage
-  let count = parseInt(localStorage.getItem("todoCount")) || 0;
+  this.state = {
+    count : initialState.length,
+  }
 
+  
   this.setState = (nextState) => {
-    count = nextState;
-    localStorage.setItem("todoCount", count.toString()); // Update localStorage
+   this.state.count = nextState;
     this.render();
   };
 
   this.render = () => {
-    $todoCount.innerHTML = `Completed Count : /Total Count: ${count}`;
+    $todoCount.innerHTML = `Completed Count : /Total Count: ${this.state.count}`;
   };
 
   this.render();
