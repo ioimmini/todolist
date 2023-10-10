@@ -1,67 +1,64 @@
-import { updateLocalStorage } from "./App.js";
+import { setItem } from "./storage.js";
 
-export default function TodoList({ $target, initialState, onClick }) {
+export default function TodoList({
+  $target,
+  initialState,
+  deleteTodo,
+  clickTodo,
+}) {
   const $todoList = document.createElement("div");
   $target.appendChild($todoList);
 
-  this.state = initialState;
+  if (!new.target) {
+    throw new Error("컴포넌트 앞에 new를 붙여서 생성해주세요");
+  }
+
+  const todovalidateTest = (nextState) => {
+    return nextState.filter((todo) => {
+      return todo.text && todo.isCompleted !== undefined && todo.id;
+    });
+  };
+
+  if (todovalidateTest(initialState)) {
+    this.state = todovalidateTest(initialState);
+  }
 
   this.setState = (nextState) => {
-    this.state = nextState;
+    this.state = todovalidateTest(nextState);
     this.render();
-    updateLocalStorage(nextState);
-  };
-
-  this.toggleCompletion = (index) => {
-    const nextState = [...this.state];
-    nextState[index].isCompleted = !nextState[index].isCompleted;
-    this.setState(nextState);
-
-    // Update the count when an item is toggled
-    const updatedCount = calculateCount(nextState); // Implement this function to calculate the count
-    onClick(updatedCount);
-  };
-
-  this.removeTodo = (index) => {
-    const nextState = [
-      ...this.state.slice(0, index),
-      ...this.state.slice(index + 1),
-    ];
-    this.setState(nextState);
-
-    // Update the count when an item is removed
-    onClick(--initialState.length);
+    setItem("todos", JSON.stringify(this.state));
   };
 
   this.render = () => {
     $todoList.innerHTML = `
-      <ul>
-        ${this.state
-          .map(
-            (todo, index) =>
-              `<li${todo.isCompleted ? ' class="completed"' : ""}>
-                 <span class="todo-text">${todo.text}</span>
-                 <button class="delete-button" data-index="${index}">❌</button>
-                 <button class="complete-button" data-index="${index}">${
-                todo.isCompleted ? "✓" : "○"
-              }</button>
-               </li>`
-          )
-          .join("")}
-      </ul>
-    `;
+          <ul>
+              ${this.state
+                .map(
+                  (todo) =>
+                    `<li id=${todo.id}><span style= "${
+                      todo.isCompleted
+                        ? "text-decoration:line-through;"
+                        : "text-decoration:none;"
+                    }" id=${todo.id}> ${todo.text}</span><button id=${
+                      todo.id
+                    }> x </button></li>`
+                )
+                .join("")}
+          </ul>
+      `;
+
+
+    $todoList.querySelectorAll("span").forEach((todoItem) => {
+      todoItem.addEventListener("click", (e) => {
+        clickTodo(e.target.id);
+      });
+    });
+
+    $todoList.querySelectorAll("button").forEach((todoDelBtn) => {
+      todoDelBtn.addEventListener("click", (e) => {
+        deleteTodo(e.target.id);
+      });
+    });
   };
-
-  // Event delegation for handling both completion toggle and delete
-  $todoList.addEventListener("click", (e) => {
-    if (e.target.classList.contains("delete-button")) {
-      const index = parseInt(e.target.getAttribute("data-index"));
-      this.removeTodo(index);
-    } else if (e.target.classList.contains("complete-button")) {
-      const index = parseInt(e.target.getAttribute("data-index"));
-      this.toggleCompletion(index);
-    }
-  });
-
   this.render();
 }
