@@ -32,7 +32,7 @@ export default function TodoCount({ $target, initialState }) {
     const totalCount = this.state.length;
 
     $div.innerHTML = `
-            <strong>Completed : ${completedCount} /  Total : ${totalCount}</storng>
+            <strong>Completed : ${completedCount} </br>  Total : ${totalCount}</storng>
         `;
   };
   this.render();
